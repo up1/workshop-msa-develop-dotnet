@@ -113,11 +113,26 @@ NAME      IMAGE               COMMAND                  SERVICE   CREATED        
 kong      kong:3.7.1-ubuntu   "/docker-entrypoint.…"   kong      12 seconds ago   Up 11 seconds (healthy)   0.0.0.0:8000-8002->8000-8002/tcp, 0.0.0.0:8100->8100/tcp, 8443-8444/tcp
 ```
 
+Kong dashboard
+* http://localhost:8002
+
 Access to demo-service from API gateway
 * http://localhost:8000/s1/api/passes
 
 Application metric
 * http://localhost:8100/metrics
+
+Access to Grafana dashboard again
+* http://localhost:3000/
+
+## Keep log of Kong and demo-service
+```
+$docker compose up -d fluentbit
+$docker compose ps
+```
+
+Access to demo-service from API gateway
+* http://localhost:8000/s1/api/passes
 
 Access to Grafana dashboard again
 * http://localhost:3000/
