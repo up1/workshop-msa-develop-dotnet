@@ -21,6 +21,7 @@ $dotnet sln add src/Fitness.IntegrationTests/Fitness.IntegrationTests.csproj
 
 ## Try to run
 ```
+$dotnet format
 $dotnet restore
 $dotnet test
 $dotnet publish
@@ -30,6 +31,24 @@ $dotnet publish
 ```
 $dotnet add package Microsoft.EntityFrameworkCore
 $dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+```
+
+## Install Opentelemetry
+```
+# Automatic tracing, metrics
+$dotnet add package OpenTelemetry.Extensions.Hosting
+
+# Telemetry data exporter
+$dotnet add package OpenTelemetry.Exporter.OpenTelemetryProtocol
+
+# Instrumentation packages
+$dotnet add package OpenTelemetry.Instrumentation.Http
+$dotnet add package OpenTelemetry.Instrumentation.AspNetCore
+$dotnet add package Npgsql.OpenTelemetry
+$dotnet add package OpenTelemetry.Exporter.Console
+
+$dotnet add package OpenTelemetry.Instrumentation.EntityFrameworkCore --prerelease
+$dotnet add package OpenTelemetry.Instrumentation.StackExchangeRedis --prerelease
 ```
 
 ## Create [migration with EFCore](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli)
@@ -65,6 +84,22 @@ List of URLs
 * Passes APIs
     * Get all passes :: http://localhost:8080/api/passes
 
+
+## Start Opentelemetry Collector (LGTM stack)
+* Log => Loki
+* Grafana
+* Tracing => Tempo
+* Metric => Prometheus
+
+```
+$docker compose up -d otel-collector
+$docker compose up ps
+NAME                   IMAGE                     COMMAND                  SERVICE          CREATED          STATUS                    PORTS
+src-otel-collector-1   grafana/otel-lgtm:0.6.0   "/bin/sh -c ./run-al…"   otel-collector   11 seconds ago   Up 11 seconds (healthy)   0.0.0.0:3000->3000/tcp, 0.0.0.0:4317-4318->4317-4318/tcp
+```
+
+Access to Grafana dashboard
+* http://localhost:3000/
 
 ## Delete all
 ```

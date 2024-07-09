@@ -1,4 +1,9 @@
 using Fitness.Api.Passes;
+using Npgsql;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -10,6 +15,32 @@ builder.Services.AddSwaggerGen();
 
 // Add Passes module
 builder.Services.AddPasses(builder.Configuration);
+
+// Add OpenTelemetry
+const string serviceName = "demo-service";
+builder.Logging.AddOpenTelemetry(options =>
+{
+ options
+     .SetResourceBuilder(
+         ResourceBuilder.CreateDefault()
+             .AddService(serviceName))
+     .AddOtlpExporter();
+});
+
+builder.Services.AddOpenTelemetry()
+      .ConfigureResource(resource => resource.AddService(serviceName))
+      .WithTracing(tracing => tracing
+        .AddAspNetCoreInstrumentation()
+        .AddHttpClientInstrumentation()
+        .AddEntityFrameworkCoreInstrumentation()
+        .AddRedisInstrumentation()
+        .AddNpgsql()
+        .AddOtlpExporter()
+        .AddConsoleExporter())
+      .WithMetrics(metrics => metrics
+        .AddAspNetCoreInstrumentation()
+        .AddOtlpExporter()
+        .AddConsoleExporter());
 
 var app = builder.Build();
 
