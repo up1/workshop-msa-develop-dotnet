@@ -22,3 +22,9 @@ $dotnet restore
 $dotnet test
 $dotnet publish
 ```
+
+## Install packages
+```
+$dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+$dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+```
