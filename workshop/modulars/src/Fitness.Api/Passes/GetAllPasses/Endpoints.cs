@@ -6,8 +6,9 @@ namespace Fitness.Api.Passes.GetAllPasses;
 internal static class GetAllPassesEndpoint
 {
     internal static void MapGetAllPasses(this IEndpointRouteBuilder app) =>
-        app.MapGet("/api/passes", async (PassesPersistence persistence, CancellationToken cancellationToken) =>
+        app.MapGet("/api/passes", async (ILogger<GetAllPassesResponse> logger, PassesPersistence persistence, CancellationToken cancellationToken) =>
             {
+                logger.LogInformation("Getting all passes");
                 var passes = await persistence.Passes
                     .AsNoTracking()
                     .Select(passes => PassDto.From(passes))
