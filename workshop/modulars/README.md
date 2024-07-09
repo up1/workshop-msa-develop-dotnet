@@ -80,12 +80,13 @@ $docker compose ps
 ```
 
 List of URLs
-* Swagger :: http://localhost:8080/swagger/index.html
+* Swagger :: http://localhost:9000/swagger/index.html
 * Passes APIs
-    * Get all passes :: http://localhost:8080/api/passes
+    * Get all passes :: http://localhost:9000/api/passes
 
 
 ## Start Opentelemetry Collector (LGTM stack)
+* [OpenTelemetry wity .NET](https://opentelemetry.io/docs/languages/net/getting-started/)
 * Log => Loki
 * Grafana
 * Tracing => Tempo
@@ -93,12 +94,32 @@ List of URLs
 
 ```
 $docker compose up -d otel-collector
-$docker compose up ps
+$docker compose ps
 NAME                   IMAGE                     COMMAND                  SERVICE          CREATED          STATUS                    PORTS
 src-otel-collector-1   grafana/otel-lgtm:0.6.0   "/bin/sh -c ./run-al…"   otel-collector   11 seconds ago   Up 11 seconds (healthy)   0.0.0.0:3000->3000/tcp, 0.0.0.0:4317-4318->4317-4318/tcp
 ```
 
 Access to Grafana dashboard
+* http://localhost:3000/
+
+
+## API gateway with [Kong](https://konghq.com/products/kong-gateway)
+* Kong with DB-less mode
+
+```
+$docker compose up -d kong
+$docker compose ps
+NAME      IMAGE               COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+kong      kong:3.7.1-ubuntu   "/docker-entrypoint.…"   kong      12 seconds ago   Up 11 seconds (healthy)   0.0.0.0:8000-8002->8000-8002/tcp, 0.0.0.0:8100->8100/tcp, 8443-8444/tcp
+```
+
+Access to demo-service from API gateway
+* http://localhost:8000/s1/api/passes
+
+Application metric
+* http://localhost:8100/metrics
+
+Access to Grafana dashboard again
 * http://localhost:3000/
 
 ## Delete all

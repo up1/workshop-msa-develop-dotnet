@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "9000:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
@@ -44,3 +44,23 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_AUTH_DISABLE_LOGIN_FORM=true
+  
+  kong:
+    image: kong:3.7.1-ubuntu
+    container_name: kong
+    volumes:
+      - ./configs/kong.yaml:/config/kong.yaml
+    environment:
+      - KONG_DATABASE=off
+      - KONG_DECLARATIVE_CONFIG=/config/kong.yaml
+      - KONG_ADMIN_LISTEN=0.0.0.0:8001
+      - KONG_ADMIN_GUI_LISTEN=0.0.0.0:8002
+      - KONG_PROXY_LISTEN=0.0.0.0:8000
+      - KONG_STATUS_LISTEN=0.0.0.0:8100
+      - KONG_TRACING_INSTRUMENTATIONS=all
+      - KONG_TRACING_SAMPLING_RATE=1.0
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+      - "8100:8100"

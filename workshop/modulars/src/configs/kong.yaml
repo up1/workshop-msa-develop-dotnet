@@ -1,0 +1,24 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - name: demo-service
+    url: http://api:8080
+    routes:
+    - name: demo-service-route
+      paths:
+      - /s1
+
+plugins:
+- config:
+    bandwidth_metrics: true
+    latency_metrics: true
+    per_consumer: true
+    status_code_metrics: true
+    upstream_health_metrics: true
+  name: prometheus
+- config:
+    endpoint: http://otel-collector:4318/v1/traces
+    resource_attributes:
+      service.name: kong-otel-plugin
+  name: opentelemetry
