@@ -11,7 +11,14 @@ $mkdir src
 $dotnet new webapi -o src/Fitness.Api
 $dotnet sln add src/Fitness.Api/Fitness.Api.csproj
 
-# Integration test
-$dotnet new webapi -o src/Fitness.Api
-$dotnet sln add src/Fitness.Api/Fitness.Api.csproj
+# Integration test with XUnit
+$dotnet new xunit -o src/Fitness.IntegrationTests
+$dotnet sln add src/Fitness.IntegrationTests/Fitness.IntegrationTests.csproj
+```
+
+## Try to run
+```
+$dotnet restore
+$dotnet test
+$dotnet publish
 ```

@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0A0E66DF-D55
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fitness.Api", "src\Fitness.Api\Fitness.Api.csproj", "{897E9BD4-AAE9-4E31-A1D9-DD3BBC5F4AC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fitness.IntegrationTests", "src\Fitness.IntegrationTests\Fitness.IntegrationTests.csproj", "{92DFD01D-F4CE-46E9-B531-BE70252E3D90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,8 +22,13 @@ Global
 		{897E9BD4-AAE9-4E31-A1D9-DD3BBC5F4AC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{897E9BD4-AAE9-4E31-A1D9-DD3BBC5F4AC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{897E9BD4-AAE9-4E31-A1D9-DD3BBC5F4AC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92DFD01D-F4CE-46E9-B531-BE70252E3D90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92DFD01D-F4CE-46E9-B531-BE70252E3D90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92DFD01D-F4CE-46E9-B531-BE70252E3D90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92DFD01D-F4CE-46E9-B531-BE70252E3D90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{897E9BD4-AAE9-4E31-A1D9-DD3BBC5F4AC9} = {0A0E66DF-D558-4C94-AFCD-6ED567ABCEE7}
+		{92DFD01D-F4CE-46E9-B531-BE70252E3D90} = {0A0E66DF-D558-4C94-AFCD-6ED567ABCEE7}
 	EndGlobalSection
 EndGlobal
