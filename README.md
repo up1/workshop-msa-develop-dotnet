@@ -3,7 +3,7 @@
   * [x] Monolith => Modular
   * Decomposed to Small services
 * API gateway
-  * Kong API Gateway 
+  * [x] Kong API Gateway 
 * Observability with OpenTelemetry
   * [x] Application metric
   * [x] Distributed tracing
