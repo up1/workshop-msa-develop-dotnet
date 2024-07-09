@@ -1,9 +1,10 @@
 # Microservices Workshop with .NET stack
 * Evolution of architecture
-  * Monolith => Modular => Small service
+  * [x] Monolith => Modular
+  * Decomposed to Small services
 * API gateway
 * Observability with OpenTelemetry
-  * Application metric
-  * Distributed tracing
-  * Log aggregation
+  * [x] Application metric
+  * [x] Distributed tracing
+  * [x] Log aggregation
 * Manage containers with Docker
