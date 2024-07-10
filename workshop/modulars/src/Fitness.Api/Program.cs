@@ -1,5 +1,6 @@
 using Fitness.Api.Passes;
 using Fitness.Api.Contracts;
+using Fitness.Api.Common.Events;
 using Npgsql;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
@@ -14,6 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton(TimeProvider.System);
+builder.Services.AddEventBus();
 
 // Add Passes module
 builder.Services.AddPasses(builder.Configuration);
@@ -38,12 +40,10 @@ builder.Services.AddOpenTelemetry()
         .AddEntityFrameworkCoreInstrumentation()
         .AddRedisInstrumentation()
         .AddNpgsql()
-        .AddOtlpExporter()
-        .AddConsoleExporter())
+        .AddOtlpExporter())
       .WithMetrics(metrics => metrics
         .AddAspNetCoreInstrumentation()
-        .AddOtlpExporter()
-        .AddConsoleExporter());
+        .AddOtlpExporter());
 
 var app = builder.Build();
 
