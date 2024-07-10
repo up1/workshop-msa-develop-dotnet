@@ -1,6 +1,7 @@
 ﻿using Fitness.Api.Common.Events;
 using Fitness.Api.Contracts.Data;
 using Fitness.Api.Contracts.SignContract.Events;
+using OpenTelemetry.Trace;
 
 namespace Fitness.Api.Contracts.SignContract;
 
@@ -10,10 +11,12 @@ internal static class SignContractEndpoint
             async (Guid id, SignContractRequest request,
                 ContractsPersistence persistence,
                 IEventBus bus,
+                Tracer tracer,
                 TimeProvider timeProvider,
                 CancellationToken cancellationToken) =>
             {
-
+                // Create a new span from tracer
+                using var span = tracer.StartActiveSpan("Sign Contract");
                 Console.WriteLine("Contracts Module :: SignContractEndpoint.MapSignContract");
                 Console.WriteLine("id: " + id);
 

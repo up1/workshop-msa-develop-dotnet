@@ -23,6 +23,8 @@ builder.Services.AddContracts(builder.Configuration);
 
 // Add OpenTelemetry
 const string serviceName = "demo-service";
+builder.Services.AddSingleton(TracerProvider.Default.GetTracer(serviceName));
+
 builder.Logging.AddOpenTelemetry(options =>
 {
     options
@@ -35,11 +37,13 @@ builder.Logging.AddOpenTelemetry(options =>
 builder.Services.AddOpenTelemetry()
       .ConfigureResource(resource => resource.AddService(serviceName))
       .WithTracing(tracing => tracing
+        .AddSource(serviceName)
         .AddAspNetCoreInstrumentation()
         .AddHttpClientInstrumentation()
         .AddEntityFrameworkCoreInstrumentation()
         .AddRedisInstrumentation()
         .AddNpgsql()
+        .AddConsoleExporter()
         .AddOtlpExporter())
       .WithMetrics(metrics => metrics
         .AddAspNetCoreInstrumentation()
