@@ -58,6 +58,12 @@ $dotnet ef migrations add InitialCreate -n Passes.Data.Migrations  --context Pas
 dotnet ef migrations add InitialCreate -n Contracts.Data.Migrations --context ContractsPersistence -v
 ```
 
+## Install [MediatR](https://github.com/jbogard/MediatR)
+* In-process messaging with no dependencies.
+```
+$dotnet add package MediatR
+```
+
 ## Run with Docker compose
 
 Buid api with .NET 8
