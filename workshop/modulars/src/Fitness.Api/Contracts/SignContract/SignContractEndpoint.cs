@@ -4,7 +4,7 @@ namespace Fitness.Api.Contracts.SignContract;
 
 internal static class SignContractEndpoint
 {
-    internal static void MapSignContract(this IEndpointRouteBuilder app) => app.MapPatch("/api/contracts/{{id}}",
+    internal static void MapSignContract(this IEndpointRouteBuilder app) => app.MapPatch("/api/contracts/{id}",
             async (Guid id, SignContractRequest request,
                 ContractsPersistence persistence,
                 // IEventBus bus,
