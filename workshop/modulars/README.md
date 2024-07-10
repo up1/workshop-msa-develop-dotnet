@@ -54,7 +54,8 @@ $dotnet add package OpenTelemetry.Instrumentation.StackExchangeRedis --prereleas
 ## Create [migration with EFCore](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli)
 ```
 $dotnet add package Microsoft.EntityFrameworkCore.Design
-$dotnet ef migrations add InitialCreate -n Passes.Data.Migrations
+$dotnet ef migrations add InitialCreate -n Passes.Data.Migrations  --context PassesPersistence -v
+dotnet ef migrations add InitialCreate -n Contracts.Data.Migrations --context ContractsPersistence -v
 ```
 
 ## Run with Docker compose

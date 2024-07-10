@@ -1,4 +1,5 @@
 using Fitness.Api.Passes;
+using Fitness.Api.Contracts;
 using Npgsql;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
@@ -15,16 +16,17 @@ builder.Services.AddSwaggerGen();
 
 // Add Passes module
 builder.Services.AddPasses(builder.Configuration);
+builder.Services.AddContracts(builder.Configuration);
 
 // Add OpenTelemetry
 const string serviceName = "demo-service";
 builder.Logging.AddOpenTelemetry(options =>
 {
- options
-     .SetResourceBuilder(
-         ResourceBuilder.CreateDefault()
-             .AddService(serviceName))
-     .AddOtlpExporter();
+    options
+        .SetResourceBuilder(
+            ResourceBuilder.CreateDefault()
+                .AddService(serviceName))
+        .AddOtlpExporter();
 });
 
 builder.Services.AddOpenTelemetry()
@@ -51,15 +53,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Use passes module
+// Use module
 app.UsePasses();
+app.UseContracts();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-// Add Passes endpoints
+// Add endpoints
 app.MapPasses();
+app.MapContracts();
 
 app.Run();
 
